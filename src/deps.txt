@@ -47,4 +47,3 @@ jq awscli
 ShellCheck
 
 # for grub install when creating images without anaconda
-grub2

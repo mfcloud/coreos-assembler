@@ -247,11 +247,13 @@ else
         "x86_64")  QEMU_KVM="qemu-system-$(arch) -accel kvm"                          ;;
         "aarch64") QEMU_KVM="qemu-system-$(arch) -accel kvm -M virt,gic-version=host" ;;
         "ppc64le") QEMU_KVM="qemu-system-ppc64 -accel kvm"                            ;;
+	"s390x")   QEMU_KVM="qemu-system-$(arch) -accel kvm -M s390-ccw-virtio -smp 4" ;;
         *)         fatal "Architecture $(arch) not supported"
     esac
 fi
 
 runvm() {
+    set -x
     local vmpreparedir=${workdir}/tmp/supermin.prepare
     local vmbuilddir=${workdir}/tmp/supermin.build
 
@@ -287,6 +289,7 @@ trap 'chown -h -R ${USER}:${USER} ${workdir}' EXIT
 
 $(cat "${DIR}"/supermin-init-prelude.sh)
 rc=0
+cat ${TMPDIR}/cmd.sh
 sh ${TMPDIR}/cmd.sh || rc=\$?
 echo \$rc > ${workdir}/tmp/rc
 /sbin/fstrim -v ${workdir}/cache

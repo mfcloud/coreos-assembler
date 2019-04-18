@@ -22,7 +22,7 @@ bootloader --timeout=1 --append="console=ttyS0,115200n8 console=tty0 rootflags=d
 network --bootproto=dhcp --onboot=on
 
 zerombr
-clearpart --initlabel --all --disklabel=gpt
+clearpart --initlabel --all --disklabel=msdos
 
 # https://github.com/coreos/fedora-coreos-tracker/issues/18
 # See also coreos-growpart.service defined in fedora-coreos-base.yaml
